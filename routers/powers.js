@@ -84,7 +84,7 @@ router.delete('/:powerId', (req, res) => {
         })
 })
 
-router.put('/:powerId', async (req, res) => {
+router.put('/:powerId', uploadsOption.none(), async (req, res) => {
     const power = await Power.findByIdAndUpdate(
         req.params.powerId,
         {
@@ -98,6 +98,5 @@ router.put('/:powerId', async (req, res) => {
 
     res.status(200).send(power)
 });
-
 
 module.exports = router

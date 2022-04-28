@@ -1,9 +1,9 @@
 const express = require('express')
 const { Character } = require('../models/character')
 const router = express.Router()
-const multer = require('multer');
-const mongoose = require('mongoose');
-const { City } = require('../models/city');
+const multer = require('multer')
+const mongoose = require('mongoose')
+const { City } = require('../models/city')
 
 const FileTypes = {
     'image/png': 'png',
@@ -50,39 +50,41 @@ const cpUpload = uploadsOption.fields([
     { name: 'layoutImageUrl', maxCount: 1 },
     { name: 'firstImageUrl', maxCount: 1 },
     { name: 'secondImageUrl', maxCount: 1 },
-  ])
+])
 
-
-router.post('/', cpUpload, async (req,res) => {
-
+router.post('/', cpUpload, async (req, res) => {
     // const city = await City.findById(req.body.city)
 
     // if (!city) return res.status(400).send('City is invalid')
 
-    const profile = req.files['profileImageUrl'][0];
-    const logo = req.files['logoImageUrl'][0];
-    const layout = req.files['layoutImageUrl'][0];
-    const first = req.files['firstImageUrl'][0];
-    const second = req.files['secondImageUrl'][0];
+    const profile = req.files['profileImageUrl'][0]
+    const logo = req.files['logoImageUrl'][0]
+    const layout = req.files['layoutImageUrl'][0]
+    const first = req.files['firstImageUrl'][0]
+    const second = req.files['secondImageUrl'][0]
 
-    if (!profile) return res.status(400).send('profile image is not in the request!')
+    if (!profile)
+        return res.status(400).send('profile image is not in the request!')
     if (!logo) return res.status(400).send('logo image is not in the request!')
-    if (!layout) return res.status(400).send('layout image is not in the request!')
-    if (!first) return res.status(400).send('first image is not in the request!')
-    if (!second) return res.status(400).send('second image is not in the request!')
+    if (!layout)
+        return res.status(400).send('layout image is not in the request!')
+    if (!first)
+        return res.status(400).send('first image is not in the request!')
+    if (!second)
+        return res.status(400).send('second image is not in the request!')
 
-    const profileImage = profile.filename;
-    const logoImage = logo.filename;
-    const layoutImage = layout.filename;
-    const firstImage = first.filename;
-    const secondImage = second.filename;
+    const profileImage = profile.filename
+    const logoImage = logo.filename
+    const layoutImage = layout.filename
+    const firstImage = first.filename
+    const secondImage = second.filename
 
-    console.log(req);
-    console.log(profileImage);
+    console.log(req)
+    console.log(profileImage)
 
     const baseUrl = `${req.protocol}://${req.get('host')}/public/uploads/`
-    
-    let character = new Character ({
+
+    let character = new Character({
         name: req.body.name,
         heroName: req.body.heroName,
         firstAppearance: req.body.firstAppearance,
@@ -91,7 +93,7 @@ router.post('/', cpUpload, async (req,res) => {
         layoutImageUrl: `${baseUrl}${layoutImage}`,
         isActive: req.body.isActive,
         firstImageUrl: `${baseUrl}${firstImage}`,
-        secondImageUrl:`${baseUrl}${secondImage}`,
+        secondImageUrl: `${baseUrl}${secondImage}`,
         nickname: req.body.nickname,
         creator: req.body.creator,
         height: req.body.height,
@@ -108,16 +110,15 @@ router.post('/', cpUpload, async (req,res) => {
         description: req.body.description,
         shortDescription: req.body.shortDescription,
         city: req.body.city,
-        deactivatedDate: req.body.deactivatedDate
+        deactivatedDate: req.body.deactivatedDate,
     })
-    
-    
-    character = await character.save();
 
-    if(!character) return res.status(400).send("Character can't be created!")
+    character = await character.save()
 
-    res.status(201).send(character);
-});
+    if (!character) return res.status(400).send("Character can't be created!")
+
+    res.status(201).send(character)
+})
 
 router.delete('/:characterId', (req, res) => {
     const character = Character.findByIdAndDelete(req.params.characterId)
@@ -140,32 +141,31 @@ router.delete('/:characterId', (req, res) => {
 })
 
 router.put('/:characterId', cpUpload, async (req, res) => {
-
     if (!mongoose.isValidObjectId(req.params.characterId))
-    return res.status(400).send('Character is Invalid')
+        return res.status(400).send('Character is Invalid')
 
     const character = await Character.findById(req.params.characterId)
     if (!character) return res.status(400).send('Character is invalid')
 
-     const city = await City.findById(req.body.city)
+    const city = await City.findById(req.body.city)
     if (!city) return res.status(400).send('City is invalid')
 
-    const profile = req.files['profileImageUrl'][0];
-    const logo = req.files['logoImageUrl'][0];
-    const layout = req.files['layoutImageUrl'][0];
-    const first = req.files['firstImageUrl'][0];
-    const second = req.files['secondImageUrl'][0];
+    const profile = req.files['profileImageUrl'][0]
+    const logo = req.files['logoImageUrl'][0]
+    const layout = req.files['layoutImageUrl'][0]
+    const first = req.files['firstImageUrl'][0]
+    const second = req.files['secondImageUrl'][0]
 
-    let profileImage = character.profileImageUrl;
-    let logoImage =  character.logoImageUrl;
-    let layoutImage = character.layoutImageUrl;
-    let firstImage = character.firstImageUrl;
-    let secondImage = character.secondImageUrl;
+    let profileImage = character.profileImageUrl
+    let logoImage = character.logoImageUrl
+    let layoutImage = character.layoutImageUrl
+    let firstImage = character.firstImageUrl
+    let secondImage = character.secondImageUrl
 
     const baseUrl = `${req.protocol}://${req.get('host')}/public/uploads/`
 
     if (profile) profileImage = `${baseUrl}${profile.filename}`
-    
+
     if (logo) logoImage = `${baseUrl}${logo.filename}`
 
     if (layout) layoutImage = `${baseUrl}${layout.filename}`
@@ -174,7 +174,6 @@ router.put('/:characterId', cpUpload, async (req, res) => {
 
     if (second) secondImage = `${baseUrl}${second.filename}`
 
-    
     const updateCharacter = await Character.findByIdAndUpdate(
         req.params.characterId,
         {
@@ -203,15 +202,16 @@ router.put('/:characterId', cpUpload, async (req, res) => {
             intelligence: req.body.intelligence,
             description: req.body.description,
             createdDate: req.body.createdDate,
-            city:req.body.city,
-            deactivatedDate: req.body.deactivatedDate
+            city: req.body.city,
+            deactivatedDate: req.body.deactivatedDate,
         },
-        {new: true}
-    );
+        { new: true }
+    )
 
-    if(!updateCharacter)  return res.status(404).send('Product can not be update')
+    if (!updateCharacter)
+        return res.status(404).send('Product can not be update')
 
     res.status(200).send(updateCharacter)
-});
+})
 
 module.exports = router

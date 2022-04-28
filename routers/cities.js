@@ -35,6 +35,20 @@ router.get('/', async (req, res) => {
     res.status(200).send(cities)
 })
 
+
+router.get('/:cityId', async (req, res) => {
+    const city = await City.findById(req.params.cityId)
+
+    if (!city) {
+        return res.status(500).json({
+            success: false,
+            message: 'City can not found',
+        })
+    }
+
+    res.status(200).send(city)
+})
+
 router.post('/', uploadsOption.none(), async (req, res) => {
     let city = new City({
         name: req.body.name,

@@ -122,18 +122,24 @@ const characterSchema = new mongoose.Schema({
     },
     deactivatedDate: {
         type: Date
-    }
-    // CityId, Products, ToyCharacters, CharacterPowers, ProductCharacters, CharacterNews,
+    },
+    characterPowers: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'CharacterPower',
+        },
+    ]
+    // Products, ToyCharacters, ProductCharacters, CharacterNews,
 });
 
 const Character = mongoose.model('Character', characterSchema);
 
-// characterSchema.virtual('id').get(function () {
-//     return this._id.toHexString()
-// })
+characterSchema.virtual('id').get(function () {
+    return this._id.toHexString()
+})
 
-// characterSchema.set('toJSON', {
-//     virtuals: true,
-// })
+characterSchema.set('toJSON', {
+    virtuals: true,
+})
 
 exports.Character = Character;
