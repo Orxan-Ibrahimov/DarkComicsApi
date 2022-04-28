@@ -33,9 +33,7 @@ const NewsSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Character',
         },
-    ]
-    
-
+    ]  
 })
 
 const News = mongoose.model('News', NewsSchema);
