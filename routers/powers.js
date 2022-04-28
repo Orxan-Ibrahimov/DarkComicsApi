@@ -65,7 +65,7 @@ router.post('/', uploadsOption.none(), async (req, res) => {
 })
 
 router.delete('/:powerId', (req, res) => {
-    const power = Power.findByIdAndDelete()
+    const power = Power.findByIdAndDelete(req.params.powerId)
         .then((deletedPower) => {
             if (deletedPower) {
                 return res.status(400).json({

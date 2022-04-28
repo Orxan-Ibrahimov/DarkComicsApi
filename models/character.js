@@ -123,13 +123,20 @@ const characterSchema = new mongoose.Schema({
     deactivatedDate: {
         type: Date
     },
-    characterPowers: [
+    powers: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Power',
+            required:true,
+        },
+    ],
+    news: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'News',
         },
     ]
-    // Products, ToyCharacters, ProductCharacters, CharacterNews,
+    // Products, ToyCharacters, ProductCharacters,
 });
 
 const Character = mongoose.model('Character', characterSchema);
