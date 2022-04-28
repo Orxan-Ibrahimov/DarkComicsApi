@@ -9,12 +9,6 @@ const PowerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    characterPowers: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'CharacterPower',
-        },
-    ],
     isActive: {
         type: Boolean,
         default: true,

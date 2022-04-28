@@ -126,7 +126,7 @@ const characterSchema = new mongoose.Schema({
     characterPowers: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'CharacterPower',
+            ref: 'Power',
         },
     ]
     // Products, ToyCharacters, ProductCharacters, CharacterNews,
