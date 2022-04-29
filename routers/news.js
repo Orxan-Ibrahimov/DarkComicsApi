@@ -1,6 +1,7 @@
 const express = require('express')
 const { News } = require('../models/news')
 const router = express.Router()
+const multer = require('multer')
 
 const FileTypes = {
     'image/png': 'png',
@@ -63,6 +64,7 @@ router.post('/', uploadsOption.single('image'), async (req, res) => {
         description: req.body.description,
         shortDescription: req.body.shortDescription,
         blogger: req.body.blogger,
+        tags: req.body.tags,
         characters: req.body.characters,
         image: imagePath,
     })
@@ -111,6 +113,7 @@ router.put('/:newsId', uploadsOption.single('image'), async (req, res) => {
             description: req.body.description,
             shortDescription: req.body.shortDescription,
             blogger: req.body.blogger,
+            tags: req.body.tags,
             characters: req.body.characters,
             image: imagePath,
         },
