@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const { Tag } = require('../models/tag')
-const router = require('./news')
 const multer = require('multer')
 
 const FileTypes = {
@@ -110,3 +109,5 @@ router.put('/:tagId', uploadsOption.none(), async (req, res) => {
 
     res.status(200).send(tag)
 })
+
+module.exports = router

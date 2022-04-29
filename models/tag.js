@@ -1,9 +1,6 @@
 const mongoose = require('mongoose')
 
 const TagSchema = mongoose.Schema({
-    id:{
-        type:String,
-    },
     title:{
         type:String,
         required:true

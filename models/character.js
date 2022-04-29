@@ -1,9 +1,6 @@
 const mongoose = require('mongoose')
 
-const characterSchema = new mongoose.Schema({
-    id: {
-        type: String,
-    },
+const characterSchema = new mongoose.Schema({  
     name: {
         type: String,
         required: true,
@@ -127,7 +124,6 @@ const characterSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Power',
-            required:true,
         },
     ],
     news: [

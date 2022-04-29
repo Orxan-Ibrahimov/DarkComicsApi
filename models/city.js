@@ -1,9 +1,6 @@
 const mongoose = require('mongoose')
 
 const CitySchema = new mongoose.Schema({
-    id: {
-        type: String,
-    },
     name: {
         type: String
     },

@@ -7,9 +7,16 @@ const api = process.env.API_URL;
 
 const characterRouter = require('./routers/characters');
 const cityRouter = require('./routers/cities');
+const tagRouter = require('./routers/tags');
+const poweRouter = require('./routers/powers');
+const newsRouter = require('./routers/news');
+
 
 app.use(`${api}/cities`,cityRouter);
 app.use(`${api}/characters`,characterRouter);
+app.use(`${api}/tags`,tagRouter);
+app.use(`${api}/powers`,poweRouter);
+app.use(`${api}/news`,newsRouter);
 
 
 app.use(express.json());
