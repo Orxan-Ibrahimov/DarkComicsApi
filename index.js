@@ -10,6 +10,7 @@ const cityRouter = require('./routers/cities');
 const tagRouter = require('./routers/tags');
 const poweRouter = require('./routers/powers');
 const newsRouter = require('./routers/news');
+const serieRouter = require('./routers/series');
 
 
 app.use(`${api}/cities`,cityRouter);
@@ -17,6 +18,7 @@ app.use(`${api}/characters`,characterRouter);
 app.use(`${api}/tags`,tagRouter);
 app.use(`${api}/powers`,poweRouter);
 app.use(`${api}/news`,newsRouter);
+app.use(`${api}/series`,serieRouter);
 
 
 app.use(express.json());
